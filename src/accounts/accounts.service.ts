@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Account } from './account.model';
-import path from 'path';
-import fs from 'fs';
+import * as path from 'path';
+import * as fs from 'fs';
 
 @Injectable()
 export class AccountsService {
+    [x: string]: any;
     private readonly filePath = path.resolve('src/accounts/account.json');
    
     private readAccounts(): Account[] {
@@ -27,4 +28,35 @@ export class AccountsService {
         this.writeAccounts(accounts);
         return newAccount;
     }
+
+    findById(id: number): Account{
+        const accounts = this.readAccounts();
+        const account = accounts.find(account => account.id === Number(id));
+
+        if (!account) {
+            console.log(`Account with id ${id} not found`);
+          }
+          return account;
+    }
+
+    getTotalBalance(): number {
+        const listOfAccounts = this.readAccounts();
+        return listOfAccounts.reduce((total, account) => total + account.balance, 0);
+      }
+      updateBalance(id: number, newBalance: number): Account {
+        const listOfAccounts = this.readAccounts();
+        const accountToUpdate = listOfAccounts.find(account => account.id === Number(id));
+    
+        if (!accountToUpdate) {
+          throw new NotFoundException('Account not found');
+        }
+    
+        accountToUpdate.balance = newBalance;
+        this.writeAccounts(listOfAccounts);
+    
+        return accountToUpdate;
+      }
+
+      
 }
+
