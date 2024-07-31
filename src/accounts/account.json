@@ -1,12 +1,17 @@
 [
-    {
-      "id": 1,
-      "name": "EmpoderaBank",
-      "balance": 1000
-    },
-    {
-      "id": 2,
-      "name": "SPPBank",
-      "balance": 434
-    }
-  ]
+  {
+    "id": 1,
+    "name": "EmpoderaBank",
+    "balance": 1000
+  },
+  {
+    "id": 2,
+    "name": "SPPBank",
+    "balance": 434
+  },
+  {
+    "id": 3,
+    "name": "EmpoderaBank",
+    "balance": 400
+  }
+]
